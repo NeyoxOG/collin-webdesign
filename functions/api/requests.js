@@ -1,0 +1,6 @@
+import{verifySession}from'../_lib/auth.js';
+async function authed(request,env){return verifySession(request,env.SESSION_SECRET)}
+const deny=()=>Response.json({error:'Nicht autorisiert.'},{status:401,headers:{'cache-control':'no-store'}});
+export async function onRequestGet({request,env}){if(!await authed(request,env))return deny();const{results}=await env.DB.prepare('SELECT id,name,email,project_type,pages_name,domain_help,message,created_at,status FROM inquiries ORDER BY created_at DESC LIMIT 200').all();return Response.json({requests:results},{headers:{'cache-control':'no-store'}})}
+export async function onRequestPatch({request,env}){if(!await authed(request,env))return deny();const b=await request.json();if(!b.id)return Response.json({error:'ID fehlt.'},{status:400});await env.DB.prepare('UPDATE inquiries SET status=? WHERE id=?').bind(b.status==='read'?'read':'new',b.id).run();return Response.json({ok:true})}
+export async function onRequestDelete({request,env}){if(!await authed(request,env))return deny();const b=await request.json();if(!b.id)return Response.json({error:'ID fehlt.'},{status:400});await env.DB.prepare('DELETE FROM inquiries WHERE id=?').bind(b.id).run();return Response.json({ok:true})}
