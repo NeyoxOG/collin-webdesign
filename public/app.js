@@ -1,6 +1,7 @@
 const $=(q,c=document)=>c.querySelector(q),$$=(q,c=document)=>[...c.querySelectorAll(q)];
 $('#year').textContent=new Date().getFullYear();
 const extraCss=document.createElement('link');extraCss.rel='stylesheet';extraCss.href='/request-v2.css';document.head.append(extraCss);
+const accessCss=document.createElement('link');accessCss.rel='stylesheet';accessCss.href='/project-access.css';document.head.append(accessCss);
 const accessKey='collin-project-access-v1';
 function getSavedAccess(){try{return JSON.parse(localStorage.getItem(accessKey)||'{}')}catch{return {}}}
 function mountProjectShortcut(){const a=getSavedAccess();if(!a.id||!a.token||document.querySelector('.project-shortcut'))return;document.body.insertAdjacentHTML('beforeend','<a class="project-shortcut" href="/project/"><span class="project-shortcut-dot"></span><div><b>Mein Projekt</b><small>Status & Chat öffnen</small></div><span>→</span></a>')}
