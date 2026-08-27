@@ -9,6 +9,10 @@ CREATE TABLE IF NOT EXISTS inquiries (
   message TEXT NOT NULL,
   details_json TEXT,
   chat_token_hash TEXT,
+  project_status TEXT NOT NULL DEFAULT 'requested',
+  status_note TEXT,
+  confirmed_at TEXT,
+  updated_at TEXT,
   created_at TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'new',
   ip_hash TEXT
