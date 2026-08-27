@@ -1,3 +1,8 @@
 name = "collin-webdesign"
 compatibility_date = "2026-08-27"
 pages_build_output_dir = "./public"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "collin-webdesign-requests"
+database_id = "3bac61ab-c8c8-47b5-92c4-1d944313d8e7"
